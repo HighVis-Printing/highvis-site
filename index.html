@@ -469,14 +469,14 @@
     <p>© 2026 HighVis Printing. All rights reserved.</p>
   </footer>
 
-  <script>
-    const prices = {
-      "Basic": 10,
-      "Premium": 15,
-      "Heavy": 35
-    };
+<script>
+const prices = {
+  "Basic": 10,
+  "Premium": 15,
+  "Heavy": 35
+};
 
-   function addItem() {
+function addItem() {
   const div = document.createElement("div");
   div.className = "line-item";
 
@@ -520,11 +520,52 @@
 
   document.getElementById("items").appendChild(div);
 
-  // Set default colors
   updateColors(div.querySelector(".type"));
-
   calc();
 }
+
+function updateColors(selectElement) {
+  const line = selectElement.closest(".line-item");
+  const colorDropdown = line.querySelector(".color");
+  const type = selectElement.value;
+
+  let colors = [];
+
+  if (type === "Basic") {
+    colors = ["Orange", "Yellow"];
+  } else if (type === "Premium") {
+    colors = ["Red", "Blue", "Black", "Yellow"];
+  } else if (type === "Heavy") {
+    colors = ["Red", "Blue", "Black", "Pink", "Green", "Purple"];
+  }
+
+  colorDropdown.innerHTML = colors
+    .map(color => `<option>${color}</option>`)
+    .join("");
+}
+
+function calc() {
+  let total = 0;
+
+  document.querySelectorAll(".line-item").forEach(item => {
+    const type = item.querySelector(".type").value;
+    const qty = parseInt(item.querySelector(".qty").value) || 0;
+    const lineTotal = prices[type] * qty;
+
+    item.querySelector(".line-price").innerText = "$" + lineTotal.toFixed(2);
+    total += lineTotal;
+  });
+
+  document.getElementById("total").innerHTML =
+    "<strong>Total: $" + total.toFixed(2) + "</strong>";
+}
+
+function submitOrder() {
+  alert("Checkout will be connected to Stripe after the website is finalized.");
+}
+
+addItem();
+</script>
     }
 
     function calc() {
