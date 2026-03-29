@@ -476,56 +476,55 @@
       "Heavy": 35
     };
 
-    function addItem() {
-      const div = document.createElement("div");
-      div.className = "line-item";
+   function addItem() {
+  const div = document.createElement("div");
+  div.className = "line-item";
 
-      div.innerHTML = `
-        <div class="line-grid">
-          <div>
-            <label>Vest Type</label>
-            <select class="type" onchange="calc()">
-              <option value="Basic">Basic Vest</option>
-              <option value="Premium">Premium Vest</option>
-              <option value="Heavy">Heavy Duty Vest</option>
-            </select>
-          </div>
+  div.innerHTML = `
+    <div class="line-grid">
+      <div>
+        <label>Vest Type</label>
+        <select class="type" onchange="updateColors(this); calc()">
+          <option value="Basic">Basic Vest</option>
+          <option value="Premium">Premium Vest</option>
+          <option value="Heavy">Heavy Duty Vest</option>
+        </select>
+      </div>
 
-          <div>
-            <label>Color</label>
-            <select class="color" onchange="calc()">
-              <option>Yellow</option>
-              <option>Orange</option>
-              <option>Black</option>
-              <option>Blue</option>
-              <option>Green</option>
-            </select>
-          </div>
+      <div>
+        <label>Color</label>
+        <select class="color"></select>
+      </div>
 
-          <div>
-            <label>Size</label>
-            <select class="size" onchange="calc()">
-              <option>S</option>
-              <option>M</option>
-              <option>L</option>
-              <option>XL</option>
-              <option>2XL</option>
-              <option>3XL</option>
-            </select>
-          </div>
+      <div>
+        <label>Size</label>
+        <select class="size" onchange="calc()">
+          <option>S</option>
+          <option>M</option>
+          <option>L</option>
+          <option>XL</option>
+          <option>2XL</option>
+          <option>3XL</option>
+        </select>
+      </div>
 
-          <div>
-            <label>Quantity</label>
-            <input type="number" class="qty" value="1" min="1" onchange="calc()">
-          </div>
-        </div>
+      <div>
+        <label>Quantity</label>
+        <input type="number" class="qty" value="1" min="1" onchange="calc()">
+      </div>
+    </div>
 
-        <div class="line-total">Line Total: <span class="line-price">$10.00</span></div>
-        <button class="btn remove-btn" type="button" onclick="this.parentElement.remove(); calc();">Remove</button>
-      `;
+    <div class="line-total">Line Total: <span class="line-price">$10.00</span></div>
+    <button class="btn remove-btn" type="button" onclick="this.parentElement.remove(); calc();">Remove</button>
+  `;
 
-      document.getElementById("items").appendChild(div);
-      calc();
+  document.getElementById("items").appendChild(div);
+
+  // Set default colors
+  updateColors(div.querySelector(".type"));
+
+  calc();
+}
     }
 
     function calc() {
