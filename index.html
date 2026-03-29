@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HighVis Printing</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      color: #111;
+    }
+
+    header {
+      background: #000;
+      padding: 15px 20px;
+      text-align: center;
+    }
+
+    header img {
+      width: 180px;
+      max-width: 100%;
+    }
+
+    nav {
+      background: #111;
+      text-align: center;
+      padding: 14px 10px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin: 0 14px;
+      font-weight: bold;
+      font-size: 15px;
+    }
+
+    nav a:hover {
+      color: #ff6600;
+    }
+
+    .hero {
+      background: linear-gradient(to right, #000, #222);
+      color: white;
+      text-align: center;
+      padding: 70px 20px;
+    }
+
+    .hero h1 {
+      font-size: 40px;
+      margin-bottom: 15px;
+    }
+
+    .hero p {
+      font-size: 18px;
+      margin-bottom: 25px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-block;
+      background: #ff6600;
+      color: white;
+      padding: 12px 22px;
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-secondary {
+      background: transparent;
+      border: 2px solid #ff6600;
+      color: #ff6600;
+    }
+
+    .section {
+      padding: 55px 20px;
+      text-align: center;
+    }
+
+    .section h2 {
+      font-size: 30px;
+      margin-bottom: 15px;
+    }
+
+    .section p.section-text {
+      max-width: 800px;
+      margin: 0 auto 25px;
+      color: #444;
+      line-height: 1.6;
+    }
+
+    .grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .card {
+      background: white;
+      width: 300px;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      padding: 20px;
+      text-align: center;
+    }
+
+    .card img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-bottom: 15px;
+    }
+
+    .card h3 {
+      margin-bottom: 8px;
+    }
+
+    .card p {
+      color: #444;
+      margin: 6px 0;
+    }
+
+    .highlight {
+      color: #ff6600;
+      font-weight: bold;
+    }
+
+    .serve-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 16px;
+      max-width: 900px;
+      margin: 30px auto 0;
+    }
+
+    .serve-item {
+      background: white;
+      padding: 18px 20px;
+      border-radius: 10px;
+      min-width: 220px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+      font-weight: bold;
+    }
+
+    .order-section {
+      background: #ededed;
+    }
+
+    .order-box {
+      background: white;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+      text-align: left;
+    }
+
+    .customer-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+
+    .full-width {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 6px;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 11px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 15px;
+      font-family: Arial, sans-serif;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 110px;
+    }
+
+    .line-item {
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 16px;
+      margin-bottom: 15px;
+      background: #fafafa;
+    }
+
+    .line-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    .line-total {
+      margin-top: 12px;
+      font-weight: bold;
+      color: #111;
+    }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 15px;
+    }
+
+    .remove-btn {
+      background: #c62828;
+    }
+
+    .secondary-btn {
+      background: #333;
+    }
+
+    .summary-box {
+      margin-top: 20px;
+      background: #f3f3f3;
+      border-radius: 10px;
+      padding: 18px;
+    }
+
+    .summary-box p {
+      margin: 8px 0;
+    }
+
+    .contact-box {
+      background: white;
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    }
+
+    footer {
+      background: #000;
+      color: white;
+      text-align: center;
+      padding: 25px 20px;
+      margin-top: 30px;
+    }
+
+    @media (max-width: 900px) {
+      .line-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .customer-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .hero h1 {
+        font-size: 30px;
+      }
+
+      nav a {
+        display: inline-block;
+        margin: 8px 10px;
+      }
+
+      .line-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .card {
+        width: 100%;
+        max-width: 340px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <img src="./logo.png" alt="HighVis Printing Logo">
+  </header>
+
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#products">Products</a>
+    <a href="#serve">Who We Serve</a>
+    <a href="#order">Order</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
+  <section class="hero" id="home">
+    <h1>Custom High-Visibility Safety Vests</h1>
+    <p>Fast Turnaround • Professional Printing • Built for Real Work Teams</p>
+    <div class="hero-buttons">
+      <a href="#order" class="btn">Start Your Order</a>
+      <a href="#products" class="btn btn-secondary">View Products</a>
+    </div>
+  </section>
+
+  <section class="section" id="products">
+    <h2>Vest Options</h2>
+    <p class="section-text">
+      Choose from our most popular safety vest options. Each vest includes your custom logo printing and is built for visibility, comfort, and job site performance.
+    </p>
+
+    <div class="grid">
+      <div class="card">
+        <img src="./basic-vest.jpg" alt="Basic Vest with Logo">
+        <h3>Basic Vest with Logo</h3>
+        <p>Lightweight and affordable for everyday use.</p>
+        <p class="highlight">$10 each</p>
+      </div>
+
+      <div class="card">
+        <img src="./premium-vest.jpg" alt="Premium Vest with Logo">
+        <h3>Premium Vest with Logo</h3>
+        <p>Upgraded fit and materials for a more professional look.</p>
+        <p class="highlight">$15 each</p>
+      </div>
+
+      <div class="card">
+        <img src="./heavy-vest.jpg" alt="Heavy Duty Vest with Logo">
+        <h3>Heavy Duty Vest with Logo</h3>
+        <p>Best for demanding job sites and long-term wear.</p>
+        <p class="highlight">$35 each</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="serve">
+    <h2>Who We Serve</h2>
+    <p class="section-text">
+      HighVis Printing provides branded safety vests for teams that need durable, visible, professional workwear.
+    </p>
+
+    <div class="serve-list">
+      <div class="serve-item">Warehouses & Distribution Centers</div>
+      <div class="serve-item">Construction Companies</div>
+      <div class="serve-item">Security Teams</div>
+      <div class="serve-item">Event Staff</div>
+      <div class="serve-item">Logistics Operations</div>
+      <div class="serve-item">Facility Maintenance Teams</div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Why Choose HighVis Printing</h2>
+    <p class="section-text">
+      We focus on quick production, dependable quality, and straightforward ordering for businesses that need safety gear done right.
+    </p>
+
+    <div class="grid">
+      <div class="card">
+        <h3>Fast Turnaround</h3>
+        <p>Quick production for urgent team orders and repeat clients.</p>
+      </div>
+
+      <div class="card">
+        <h3>Professional Quality</h3>
+        <p>Durable printing and high-visibility products made to last.</p>
+      </div>
+
+      <div class="card">
+        <h3>Simple Ordering</h3>
+        <p>Build your order online with multiple vest styles, colors, and sizes.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section order-section" id="order">
+    <h2>Build Your Order</h2>
+    <p class="section-text">
+      Add multiple vest types, colors, sizes, and quantities below. This order builder is ready for Stripe checkout in the next step.
+    </p>
+
+    <div class="order-box">
+      <div class="customer-grid">
+        <div>
+          <label for="customerName">Name</label>
+          <input type="text" id="customerName" placeholder="Your Name">
+        </div>
+
+        <div>
+          <label for="companyName">Company Name</label>
+          <input type="text" id="companyName" placeholder="Company Name">
+        </div>
+
+        <div>
+          <label for="customerEmail">Email</label>
+          <input type="email" id="customerEmail" placeholder="Your Email">
+        </div>
+
+        <div>
+          <label for="customerPhone">Phone</label>
+          <input type="tel" id="customerPhone" placeholder="Your Phone Number">
+        </div>
+
+        <div class="full-width">
+          <label for="notes">Order Notes</label>
+          <textarea id="notes" placeholder="Logo details, print location, deadline, special instructions, or anything else about the order."></textarea>
+        </div>
+      </div>
+
+      <h3>Vest Selections</h3>
+      <div id="items"></div>
+
+      <div class="button-row">
+        <button class="btn" type="button" onclick="addItem()">Add Vest</button>
+        <button class="btn secondary-btn" type="button" onclick="calc()">Update Total</button>
+      </div>
+
+      <div class="summary-box">
+        <p id="total"><strong>Total: $0.00</strong></p>
+      </div>
+
+      <div class="button-row">
+        <button class="btn" type="button" onclick="submitOrder()">Continue to Checkout</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="contact">
+    <h2>Contact Us</h2>
+    <div class="contact-box">
+      <p><strong>Email:</strong> your@email.com</p>
+      <p><strong>Phone:</strong> (123) 456-7890</p>
+      <p><strong>Business Hours:</strong> Monday - Friday, 8:00 AM - 5:00 PM</p>
+      <p>
+        Need a custom order or want help choosing the right vest setup for your team? Reach out and we’ll help you get started.
+      </p>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2026 HighVis Printing. All rights reserved.</p>
+  </footer>
+
+  <script>
+    const prices = {
+      "Basic": 10,
+      "Premium": 15,
+      "Heavy": 35
+    };
+
+    function addItem() {
+      const div = document.createElement("div");
+      div.className = "line-item";
+
+      div.innerHTML = `
+        <div class="line-grid">
+          <div>
+            <label>Vest Type</label>
+            <select class="type" onchange="calc()">
+              <option value="Basic">Basic Vest</option>
+              <option value="Premium">Premium Vest</option>
+              <option value="Heavy">Heavy Duty Vest</option>
+            </select>
+          </div>
+
+          <div>
+            <label>Color</label>
+            <select class="color" onchange="calc()">
+              <option>Yellow</option>
+              <option>Orange</option>
+              <option>Black</option>
+              <option>Blue</option>
+              <option>Green</option>
+            </select>
+          </div>
+
+          <div>
+            <label>Size</label>
+            <select class="size" onchange="calc()">
+              <option>S</option>
+              <option>M</option>
+              <option>L</option>
+              <option>XL</option>
+              <option>2XL</option>
+              <option>3XL</option>
+            </select>
+          </div>
+
+          <div>
+            <label>Quantity</label>
+            <input type="number" class="qty" value="1" min="1" onchange="calc()">
+          </div>
+        </div>
+
+        <div class="line-total">Line Total: <span class="line-price">$10.00</span></div>
+        <button class="btn remove-btn" type="button" onclick="this.parentElement.remove(); calc();">Remove</button>
+      `;
+
+      document.getElementById("items").appendChild(div);
+      calc();
+    }
+
+    function calc() {
+      let total = 0;
+
+      document.querySelectorAll(".line-item").forEach(item => {
+        const type = item.querySelector(".type").value;
+        const qty = parseInt(item.querySelector(".qty").value) || 0;
+        const lineTotal = prices[type] * qty;
+
+        item.querySelector(".line-price").innerText = "$" + lineTotal.toFixed(2);
+        total += lineTotal;
+      });
+
+      document.getElementById("total").innerHTML = "<strong>Total: $" + total.toFixed(2) + "</strong>";
+    }
+
+    function submitOrder() {
+      alert("Checkout will be connected to Stripe after the website is finalized.");
+    }
+
+    addItem();
+  </script>
+
+</body>
+</html>
